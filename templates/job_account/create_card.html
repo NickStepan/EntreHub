@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Створити картку</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .dark input, .dark textarea, .dark select, .dark .time-field{
+            background-color: blueviolet;
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            color: white;
+        }
+    </style>
+</head>
+{% endblock %}
+
+
+{% block content %}
+<div class="form-container">>
+
+    <h1>Створити нову картку</h1>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    <form method="post" enctype="multipart/form-data"> <!-- Додавання розкладу -->
+        {% csrf_token %}
+        <h3>Дані картки</h3>
+        {{ card_form.as_p }}
+        
+        
+        </div>
+        <button type="submit" class="btn">Створити</button>
+    </form>
+
+    <a href="{% url 'profile' profile=request.user %}">Назад до списку карток</a>
+</div>
+
+
+{% endblock %}

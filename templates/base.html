@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNS - Головна</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+
+<body>
+    
+    <!-- Шапка, це верхня панелька -->
+    <header>
+        <!-- <div id="blur"></div> -->
+        <div class="avatar">
+            {% if request.user.is_authenticated%}
+                {% if not request.user.avatar%}
+                    <a href="{% url 'profile' profile=request.user %}"><img src="{% static 'images/avatar.png' %}" alt="Avatar"></a>
+                {% else %}
+                    <a href="{% url 'profile' profile=request.user %}"><img src="{{ user.avatar.url }}" alt="Avatar"></a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'register' %}"><img src="{% static 'images/avatar.png' %}" alt="Avatar"></a>
+            {% endif %}
+        </div>
+
+        <div class="logo">
+            <a href="{% url 'index' %}"><h1>EntroHub</h1></a>
+        </div>
+
+        <div class="menu">
+            <input type="checkbox"> 
+            <img src="{% static 'images/settings.png' %}" alt="Settings">
+        </div>
+        
+        <nav>
+            <a href="{% url 'profile' profile=request.user %}">My profile</a>
+            <form method="post" action="{% url 'logout' %}" onsubmit="return confirm('Ви впевнені, що хочете вийти?');">
+                {% csrf_token %}  
+                <button type="submit" class="exit">Вийти</button>
+            </form>
+        </nav>
+    </header>
+
+    <!-- Основний контент, тут можна розмістити всю основу -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>

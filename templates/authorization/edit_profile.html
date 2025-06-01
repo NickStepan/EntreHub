@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профіль користувача</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+
+{% block content %}
+    <h2>Редагувати профіль</h2>
+
+
+    <div class="profile">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <button type="submit">Зберегти зміни</button>
+    </form>
+    </div>
+
+    <a href="{% url 'profile' profile=request.user %}">Назад до профілю</a>
+
+{% endblock %}

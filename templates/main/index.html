@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+<head>
+    {% load static %}
+</head>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="card-grid" >
+    
+    {% for card in cards %}
+        <a href="{% url 'card_detail' hashed=card.card_hash %}">
+            <div class="card">
+                {% if card.ico_card %}
+                    <img src="{{ card.ico_card.url }}">
+                {% else %}
+                    <img src="{% static 'images/card.png' %}" alt="Image">
+                {% endif %}
+                <p style="color: #000; font-size: 16px;" >{{ card.topic }}</p>
+                <p>{{ card }}</p>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Schedule to {{ card.title }}</title>
+    <style>
+        .form-row { margin-bottom: 15px; }
+        label { display: inline-block; width: 150px; }
+    </style>
+</head>
+<body>
+    <h1>Add Schedule to {{ card.title }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div class="form-row">
+                <label>{{ form.day_of_week.label }}:</label>
+                {{ form.day_of_week }}
+                <label>{{ form.start_time.label }}:</label>
+                {{ form.start_time }}
+                <label>{{ form.end_time.label }}:</label>
+                {{ form.end_time }}
+                <label>{{ form.is_available.label }}:</label>
+                {{ form.is_available }}
+            </div>
+        {% endfor %}
+        <button type="submit">Save Schedule</button>
+    </form>
+    <a href="{% url 'card_detail' card.id %}">Back to Card</a>
+</body>
+</html>

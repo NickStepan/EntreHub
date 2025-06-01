@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+<!-- accounts/templates/accounts/profile.html -->
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профіль користувача</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+
+{% block content %}
+<body>
+    <div class="profile">
+        <h1>Профіль користувача {{ user.username }}
+        {% if request.user == user %}
+            <a href="{% url 'edit-profile' %}">
+                <button type="submit">
+                    <img src="{% static 'images/edit.png' %}" style="width: 30px; height: 30px;">
+                </button> <!-- Редагувати -->
+            </a>
+        {% endif %}
+    </h1>
+        <p>Електронна пошта: {{ user.email }}</p>
+        <p>Username: {{ user.username }}</p>
+        <p>Ім'я: {{ user.first_name }}</p>
+        <p>Прізвище: {{ user.last_name }}</p>
+        
+
+        <a href="{% url 'create_card' %}" class="button" >Створити нову картку</a>
+
+        {% for card in user_cards %}
+            <a href="{% url 'card_detail' hashed=card.card_hash %}"><div class="card">{{ card.topic }} {{ card_hash }}</div></a>
+        {% endfor %}
+    </div>
+    
+    <button type="submit" class="exit">Вийти</button>
+
+    
+
+</body>
+</html>
+{% endblock %}

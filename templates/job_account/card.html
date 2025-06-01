@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перегляд картки</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        
+        /* .button:hover{ */
+            /* background-color: #5b1313; */
+        /* } */
+
+    </style>
+</head>
+{% endblock %}
+
+
+{% block content %}
+<body>
+    <div class="card-detail">
+        <!-- Профіль автора 
+        <div class="profile">
+            <h3>Автор: {{ user.username }}</h3>
+            {% if user.userprofile %}
+                {% if user.userprofile.avatar %}
+                    <img src="{{ user.userprofile.avatar.url }}" style="max-width: 100px; height: auto;" alt="Аватар">
+                {% endif %}
+                <p>Професія: {{ user.profession|default:"Не вказано" }}</p>
+                <p>Телефон: {{ user.userprofile.phone_number|default:"Не вказано" }}</p>
+                <p>Про себе: {{ user.userprofile.bio|default:"Не вказано" }}</p>
+            {% else %}
+                <p>Професія: {{ user.profession|default:"Не вказано" }}</p>
+                <p>Профіль не налаштовано</p>
+            {% endif %}
+        </div>-->
+        
+        <h1 style="grid-column: 2; grid-row: 1;">{{ card.topic }}</h1>
+        <img src="{{ card.ico_card.url }}" style="grid-column: 1; grid-row: 2;">
+        <p style="grid-column: 2; grid-row: 2;">{{ card.description }}</p>
+        {% if request.user == card.author %}
+            <a href="{% url 'edit_card' card=card.card_hash %}" class="button" style="grid-column: 1; grid-row: 1; width: 25%; margin-right: auto;">Змінити</a>
+            <a href="{% url 'delete_card' pk=card.pk %}" class="button" style="grid-column: 3; grid-row: 1; width: 25%; margin-left: auto; background-color: #831b1b;">Видалити</a>
+        {% endif %}
+
+        <!--  Вивести всі елементи <ul>
+            {% for field in fields_data %}
+                <li>{{ field.name }}: {{ field.value }}</li>
+            {% endfor %}
+        </ul> -->
+
+        <!-- Додати наверху профіль і далі
+            опис карти, тему, текст склад самої картки(наприклад розклад або щось що виклав володар картки) -->
+        
+        <!-- <h2>Schedule</h2>
+        {% if schedules %}
+            {% for schedule in schedules %}
+                <div class="schedule">
+                    <p><strong>{{ schedule.get_day_of_week_display }}</strong></p>
+                    {% if schedule.is_available %}
+                        <p>Working Hours: {{ schedule.start_time }} - {{ schedule.end_time }}</p>
+                        <form method="post" class="booking-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="schedule_id" value="{{ schedule.id }}">
+                            {{ booking_form.as_p }}
+                            <button type="submit">Book</button>
+                        </form>
+                    {% else %}
+                        <p>Not Available</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No schedule available.</p>
+            {% if card.author == user %}
+                <a href="{% url 'add_schedule_to_card' card.id %}">Add Schedule</a>
+            {% endif %}
+        {% endif %} -->
+
+    
+    </div>
+</body>
+{% endblock %}

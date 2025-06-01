@@ -1,0 +1,7 @@
+<h2>Ви дійсно хочете видалити "{{ object }}"?</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Так, видалити</button>
+    <a href="{% url 'card_detail' hashed=card.card_hash %}">Скасувати</a>
+</form>

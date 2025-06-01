@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вхід</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+{% endblock %}
+
+{% block content %}
+<body>
+    <h1>Вхід</h1>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        {% if request.GET.next %}
+          <input type="hidden" name="next" value="{{ request.GET.next }}">
+        {% endif %}
+
+        <input type="checkbox" name="remember_me" id="remember_me">
+        <label for="remember_me">Запам’ятати мене</label>
+        
+        <button type="submit">Увійти</button>
+    </form>
+
+    <p>Немає облікового запису? <a href="{% url 'register' %}">Зареєструватися</a></p>
+</body>
+{% endblock %}
